@@ -1,11 +1,11 @@
 grammar Calculator;
 
 @lexer::header {
-package main.java;
+package antlr;
 }
 
 @parser::header {
-package main.java;
+package antlr;
 import java.util.HashMap;
 }
 
