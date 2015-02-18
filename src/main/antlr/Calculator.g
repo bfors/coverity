@@ -9,12 +9,21 @@ package antlr;
 import java.util.HashMap;
 }
 
-@members {
+@parser::members {
 //Map variable name to Integer object holding value
 HashMap memory = new HashMap();
+
+    //Overriding this method allows me to catch exceptions that ANTLR would normally recover from
+    @Override
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String header = getErrorHeader(e);
+        String message = getErrorMessage(e, tokenNames);
+        throw new RuntimeException(header + ":" + message);
+    }
 }
 
-prog:   exp {System.out.println($exp.value);}
+prog returns [int value]
+        :   exp {$value = $exp.value;}
         ;
 
 exp returns [int value]
